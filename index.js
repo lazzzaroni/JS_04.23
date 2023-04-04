@@ -1,21 +1,21 @@
-let input = "";
+// ********************************* Task 1 ********************************* //
 
-while (!input.match(/^\d+$/g)) {
-  if (input.length) {
-    console.log("Incorrect input 🙁");
+let userNum = "";
+
+while (!userNum.match(/^\d+$/g)) {
+  if (userNum.length) {
+    incorrectInput();
   }
 
-  input = prompt("Enter a valid number");
+  userNum = prompt("Enter a valid number");
 
-  if (!input.length) {
-    console.log("Input field is empty 😕");
-  }
+  checkLength(userNum);
 
-  if (input.startsWith("0") && input.length != 1) {
-    input = input.replace(/^0+/, "");
+  if (userNum.startsWith("0") && userNum.length != 1) {
+    userNum = userNum.replace(/^0+/, "");
 
-    if (!input.length) {
-      input = "0";
+    if (!userNum.length) {
+      userNum = "0";
     }
 
     console.log("Trim unnecessary zeros at the beginning 😉");
@@ -26,15 +26,15 @@ while (!input.match(/^\d+$/g)) {
  *  which will be coerced to number correctly => because of that
  *  I'm using double equals in comparisons */
 
-console.log(`Number: ${input}
-Factorial: ${factorial(input)}
-Square: ${square(input)}
-isPrime: ${isPrime(input)}
-isEven: ${isEven(input)}
-Delimiters: ${delimiters(input)}
+console.log(`Number: ${userNum}
+Factorial: ${factorial(userNum)}
+Square: ${square(userNum)}
+isPrime: ${isPrime(userNum)}
+isEven: ${isEven(userNum)}
+Delimiters: ${delimiters(userNum)}
 `);
 
-// ********** Helper Functions ********** //
+//*** Helper Functions ***/
 
 function recursiveFactorial(number) {
   if (number == 0) {
@@ -96,4 +96,65 @@ function delimiters(number) {
   }
 
   return delimiters.join(", ");
+}
+
+// ********************************* Task 2 ********************************* //
+
+let input = "";
+let nthTimes = "";
+
+const MAX_NUMBER = 10;
+const MAX_LENGTH = 3;
+
+while (!input.match(/[^\s\\]/g)) {
+  input = prompt("Enter 1-3 characters (except for whitespace)");
+
+  checkLength(input);
+
+  if (input.length > MAX_LENGTH || input.match(/[^\S\\]/g)) {
+    incorrectInput();
+    input = "";
+  }
+}
+
+while (!nthTimes.match(/^\d+$/g)) {
+  if (nthTimes.length) {
+    incorrectInput();
+  }
+
+  nthTimes = prompt("Enter any number from 1 to 10");
+
+  checkLength(nthTimes);
+
+  if (nthTimes.startsWith("0")) {
+    nthTimes = nthTimes.replace(/^0+/, "");
+    if (!nthTimes.length) {
+      incorrectInput();
+    }
+  }
+
+  if (nthTimes > MAX_NUMBER) {
+    incorrectInput();
+    nthTimes = "";
+  }
+}
+
+const row = [];
+
+for (let i = 0; i < nthTimes; i++) {
+  row.push(input);
+}
+
+console.log(row.join(" ").concat("\n").repeat(nthTimes));
+
+//*** Helper Functions ***/
+
+function incorrectInput() {
+  console.log("Incorrect input 🙁");
+}
+
+function checkLength(item) {
+  if (!item.length) {
+    console.log("Input field is empty 😕");
+  }
 }
