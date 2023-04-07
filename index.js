@@ -72,18 +72,32 @@ function selectFromInterval(arrOfNums, first, second) {
 function createIterable(from, to) {
   validateInput(from, to);
 
-  const result = [];
+  return {
+    [Symbol.iterator]() {
+      let i = from;
 
-  for (let i = from; i <= to; i++) {
-    result.push(i);
-  }
-
-  return result;
+      return {
+        next() {
+          if (i <= to) {
+            return { value: i++, done: false };
+          } else {
+            return { done: true };
+          }
+        },
+      };
+    },
+  };
 
   //*** Helper Function ***/
 
   function validateInput(arg1, arg2) {
-    if (typeof arg1 != "number" || typeof arg2 != "number" || arg2 <= arg1) {
+    if (
+      typeof arg1 != "number" ||
+      typeof arg2 != "number" ||
+      arg2 <= arg1 ||
+      !Number.isFinite(arg1) ||
+      !Number.isFinite(arg2)
+    ) {
       throw new Error();
     }
   }
