@@ -60,7 +60,10 @@ function selectFromInterval(arrOfNums, first, second) {
   }
 
   function isNotValidNumber(arg) {
-    return typeof arg != "number" ? true : false;
+    if (typeof arg != "number" || !Number.isFinite(arg)) {
+      return true;
+    }
+    return false;
   }
 }
 
