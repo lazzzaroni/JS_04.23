@@ -63,3 +63,25 @@ function selectFromInterval(arrOfNums, first, second) {
     return typeof arg != "number" ? true : false;
   }
 }
+
+// ********************************* Task 3 ********************************* //
+
+function createIterable(from, to) {
+  validateInput(from, to);
+
+  const result = [];
+
+  for (let i = from; i <= to; i++) {
+    result.push(i);
+  }
+
+  return result;
+
+  //*** Helper Function ***/
+
+  function validateInput(arg1, arg2) {
+    if (typeof arg1 != "number" || typeof arg2 != "number" || arg2 <= arg1) {
+      throw new Error();
+    }
+  }
+}
