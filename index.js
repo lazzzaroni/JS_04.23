@@ -22,3 +22,44 @@ function makeDeepCopy(input) {
 
   return clone(input);
 }
+
+// ********************************* Task 2 ********************************* //
+
+function selectFromInterval(arrOfNums, first, second) {
+  let result = [];
+
+  if (
+    isNotValidArray(arrOfNums) ||
+    isNotValidNumber(first) ||
+    isNotValidNumber(second)
+  ) {
+    throw new Error();
+  }
+
+  if (first > second) {
+    [first, second] = [second, first];
+  }
+
+  for (let num of arrOfNums) {
+    if (num >= first && num <= second) {
+      result.push(num);
+    }
+  }
+
+  return result;
+
+  //*** Helper Functions ***/
+
+  function isNotValidArray(arr) {
+    if (Array.isArray(arr)) {
+      if (arr.length == 0) return true;
+      return arr.some((item) => typeof item != "number");
+    }
+
+    return true;
+  }
+
+  function isNotValidNumber(arg) {
+    return typeof arg != "number" ? true : false;
+  }
+}
