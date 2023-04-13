@@ -27,4 +27,12 @@ Array.prototype.customFilter = function (fn, obj) {
 
 // ********************************* Task 2 ********************************* //
 
-function createDebounceFunction() {}
+function createDebounceFunction(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
