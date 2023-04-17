@@ -18,24 +18,16 @@ function curry(fn) {
 
 class Calculator {
   constructor(x, y) {
-    if (isValidInput(x) && isValidInput(y)) {
+    if (Calculator.isValidInput(x) && Calculator.isValidInput(y)) {
       this.x = x;
       this.y = y;
     } else {
       throw new Error();
     }
-
-    //*** Helper Function ***/
-
-    function isValidInput(arg) {
-      return (
-        typeof arg == "number" && Number.isFinite(arg) && !Object.is(arg, -0)
-      );
-    }
   }
 
   setX = (num) => {
-    if (typeof num == "number" && Number.isFinite(num) && !Object.is(num, -0)) {
+    if (Calculator.isValidInput(num)) {
       this.x = num;
     } else {
       throw new Error();
@@ -43,7 +35,7 @@ class Calculator {
   };
 
   setY = (num) => {
-    if (typeof num == "number" && Number.isFinite(num) && !Object.is(num, -0)) {
+    if (Calculator.isValidInput(num)) {
       this.y = num;
     } else {
       throw new Error();
@@ -69,6 +61,14 @@ class Calculator {
 
     return this.x / this.y;
   };
+
+  //*** Helper Method ***/
+
+  static isValidInput(arg) {
+    return (
+      typeof arg == "number" && Number.isFinite(arg) && !Object.is(arg, -0)
+    );
+  }
 }
 
 // ********************************* Task 3 ********************************* //
