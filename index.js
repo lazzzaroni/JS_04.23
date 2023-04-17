@@ -1,3 +1,5 @@
+// const fetch = require("node-fetch");
+
 // ********************************* Task 1 ********************************* //
 
 function curry(fn) {
@@ -67,4 +69,60 @@ class Calculator {
 
     return this.x / this.y;
   };
+}
+
+// ********************************* Task 3 ********************************* //
+
+class RickAndMorty {
+  getCharacter(id) {
+    if (!RickAndMorty.isValidInput(id)) {
+      throw new Error();
+    }
+
+    const req = fetch(`https://rickandmortyapi.com/api/character/${id}`);
+
+    return req
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(null);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((e) => {
+        return e.message;
+      });
+  }
+
+  async getEpisode(id) {
+    if (!RickAndMorty.isValidInput(id)) {
+      throw new Error();
+    }
+
+    try {
+      const req = await fetch(`https://rickandmortyapi.com/api/episode/${id}`);
+
+      if (!req.ok) {
+        throw new Error(null);
+      }
+
+      const data = await req.json();
+      return data;
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  //*** Helper Method ***/
+
+  static isValidInput(arg) {
+    return (
+      typeof arg == "number" &&
+      Number.isFinite(arg) &&
+      !Object.is(arg, -0) &&
+      arg >= 0
+    );
+  }
 }
