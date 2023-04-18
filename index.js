@@ -91,3 +91,89 @@ class Stack {
     return newStack;
   }
 }
+
+// ********************************* Task 2 ********************************* //
+
+class LinkedList {
+  #tail;
+  #createNode(value) {
+    return {
+      value: value,
+      next: null,
+    };
+  }
+
+  constructor() {
+    this.head = null;
+    this.length = 0;
+    this.#tail = null;
+  }
+
+  append(elem) {
+    const node = this.#createNode(elem);
+
+    if (this.head == null) {
+      this.head = node;
+      this.#tail = node;
+    } else {
+      this.#tail.next = node;
+      this.#tail = node;
+    }
+    this.length++;
+  }
+
+  prepend(elem) {
+    const node = this.#createNode(elem);
+
+    if (this.head == null) {
+      this.head = node;
+      this.#tail = node;
+    } else {
+      node.next = this.head;
+      this.head = node;
+    }
+    this.length++;
+  }
+
+  find(elem) {
+    let current = this.head;
+
+    while (current != null) {
+      if (current.value === elem) {
+        return current.value;
+      }
+      current = current.next;
+    }
+
+    return null;
+  }
+
+  toArray() {
+    const result = [];
+    let current = this.head;
+
+    while (current != null) {
+      result.push(current.value);
+      current = current.next;
+    }
+
+    return result;
+  }
+
+  static fromIterable(iterable) {
+    if (
+      iterable == undefined ||
+      typeof iterable[Symbol.iterator] != "function"
+    ) {
+      throw new Error("Not iterable");
+    }
+
+    const newLinkedList = new LinkedList();
+
+    for (const item of iterable) {
+      newLinkedList.append(item);
+    }
+
+    return newLinkedList;
+  }
+}
