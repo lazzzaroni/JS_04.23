@@ -50,6 +50,7 @@ class Stack {
     if (this.#lastElement == null) {
       return null;
     }
+
     return this.#lastElement.value;
   }
 
@@ -59,12 +60,15 @@ class Stack {
 
   toArray() {
     const result = [];
+    const length = this.#length;
 
     while (!this.isEmpty()) {
       result.unshift(this.#lastElement.value);
       this.#lastElement = this.#lastElement.previous;
       this.#length--;
     }
+
+    this.#length = length;
 
     return result;
   }
@@ -119,6 +123,7 @@ class LinkedList {
       this.#tail.next = node;
       this.#tail = node;
     }
+
     this.length++;
   }
 
@@ -132,6 +137,7 @@ class LinkedList {
       node.next = this.head;
       this.head = node;
     }
+
     this.length++;
   }
 
@@ -216,7 +222,7 @@ class Car {
   }
 
   #setName(value, errorMessage) {
-    const maxLength = this.#MAX_STRING_LENGTH;
+    const MAX_LENGTH = this.#MAX_STRING_LENGTH;
 
     if (!isValidString(value)) {
       throw new Error(errorMessage);
@@ -228,7 +234,7 @@ class Car {
       return (
         typeof value == "string" &&
         value.trim().length > 0 &&
-        value.trim().length <= maxLength
+        value.trim().length <= MAX_LENGTH
       );
     }
   }
@@ -397,7 +403,7 @@ class Car {
     const damage = consumption * this.#damage;
 
     if (damage > this.#health) {
-      throw new Error("Your car won’t make it");
+      throw new Error("Your car won't make it");
     }
 
     this.#currentFuelVolume -= fuelToUse;
