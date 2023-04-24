@@ -27,6 +27,18 @@ body {
   border: 1px solid #333;
 }
 
+.buttons {
+  display: grid;
+  grid-template-areas:
+    "operation operation operation operation"
+    ". . . operation"
+    ". . . operation"
+    ". . . operation"
+    ". . . operation";
+  grid-auto-rows: 4rem;
+  grid-auto-columns: 4rem;
+}
+
 .numbers {
   display: grid;
   grid-template-areas:
@@ -40,7 +52,12 @@ body {
 
 .operations {
   display: grid;
-  grid-template-areas: "divide" "times" "minus" "plus";
+  grid-template-areas:
+    "clear plus-minus backspace divide"
+    ". . . times"
+    ". . . minus"
+    ". . . plus"
+    ". . . equal";
   grid-auto-rows: 4rem;
   grid-auto-columns: 4rem;
 }
