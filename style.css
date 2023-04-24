@@ -21,7 +21,7 @@ body {
     ". . . ."
     ". . . ."
     ". . . equal";
-  grid-template-rows: 4.5rem repeat(5, 4rem);
+  grid-template-rows: 4.6rem repeat(5, 4rem);
   grid-auto-columns: 4rem;
   gap: 0px;
   border: 1px solid #333;
@@ -73,9 +73,9 @@ body {
   display: flex;
   justify-content: end;
   align-items: center;
-  margin: 1rem 1rem 0 1rem;
+  margin: 1rem 0.8rem 0 0.8rem;
   font-family: monospace;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 
 .error {
