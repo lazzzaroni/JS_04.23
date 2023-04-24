@@ -33,12 +33,35 @@ function handleNumber(input) {
 function handleSymbol(symbol) {
   console.log("symbol: ", symbol);
 
-  if (symbol == "±") {
-    handlePluMinus();
+  switch (symbol) {
+    case "c":
+      buffer = INIT;
+      break;
+    case "±":
+      handlePlusMinus();
+      break;
+    case "←":
+      if (buffer.length == INIT.length) {
+        buffer = INIT;
+      } else {
+        buffer = buffer.substring(0, buffer.length - 1);
+      }
+      break;
+    case "÷":
+    case "×":
+    case "−":
+    case "+":
+      console.log("math operation");
+      break;
+    case "＝":
+      console.log("equals");
+      break;
+    default:
+      break;
   }
 }
 
-function handlePluMinus() {
+function handlePlusMinus() {
   if (buffer == INIT) return;
 
   let newBuffer = [...buffer];
