@@ -132,9 +132,21 @@ function handleMath(value) {
   buffer = INIT;
 }
 
+function handleEqual() {
+  if (previousOperator == null) return;
+
+  flushOperation(parseFloat(buffer));
+
+  buffer = formatResult(runningTotal);
+  previousOperator = null;
+  runningTotal = 0;
+  isEqualPressed = true;
+}
+
 function flushOperation(intBuffer) {
   switch (previousOperator) {
     case "÷":
+      if (handleZeroCases(runningTotal, intBuffer)) break;
       runningTotal /= intBuffer;
       break;
     case "×":
@@ -149,20 +161,28 @@ function flushOperation(intBuffer) {
     default:
       break;
   }
-
-  console.log(runningTotal, "from flushOperation()");
 }
 
-function handleEqual() {
-  if (previousOperator == null) return;
-
-  flushOperation(parseFloat(buffer));
-
-  buffer = formatResult(runningTotal);
-  previousOperator = null;
-  runningTotal = 0;
-  isEqualPressed = true;
-  console.log(buffer);
+function handleZeroCases(runningTotal, intBuffer) {
+  if (
+    (Object.is(runningTotal, 0) && Object.is(intBuffer, 0)) ||
+    (Object.is(runningTotal, 0) && Object.is(intBuffer, -0)) ||
+    (Object.is(runningTotal, -0) && Object.is(intBuffer, 0)) ||
+    (Object.is(runningTotal, -0) && Object.is(intBuffer, -0))
+  ) {
+    buffer = INIT;
+    handleError("Not valid operation");
+    return true;
+  }
+  if (Object.is(runningTotal, 0) || Object.is(runningTotal, -0)) {
+    buffer = INIT;
+    return true;
+  }
+  if (Object.is(intBuffer, 0) || Object.is(intBuffer, -0)) {
+    buffer = INIT;
+    handleError("Can't divide by 0 or -0");
+    return true;
+  }
 }
 
 function formatResult(total) {
