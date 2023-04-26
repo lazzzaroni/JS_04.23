@@ -110,7 +110,11 @@ function handleBackspace() {
 }
 
 function handleMath(value) {
-  if (buffer == INIT) return;
+  if (buffer == INIT) {
+    previousOperator = value;
+    return;
+  }
+
   if (buffer.at(-1) == ".") {
     handleError("Fill number after dot");
     return;
