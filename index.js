@@ -55,7 +55,7 @@ function handleNumber(input) {
 function handleSymbol(symbol) {
   switch (symbol) {
     case "c":
-      buffer = INIT;
+      handleClear();
       break;
     case "±":
       handlePlusMinus();
@@ -75,6 +75,11 @@ function handleSymbol(symbol) {
     default:
       break;
   }
+}
+
+function handleClear() {
+  buffer = INIT;
+  runningTotal = 0;
 }
 
 function handlePlusMinus() {
