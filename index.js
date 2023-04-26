@@ -83,8 +83,6 @@ function handleClear() {
 }
 
 function handlePlusMinus() {
-  if (buffer == INIT) return;
-
   let newBuffer = [...buffer];
 
   if (newBuffer.at(-1) == ".") {
