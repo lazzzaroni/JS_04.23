@@ -27,7 +27,8 @@ function handleNumber(input) {
   }
 
   if (input == "." && buffer.includes(input)) return;
-  if (input == "00" && buffer == INIT) return;
+  if ((input == "00" && buffer == INIT) || (input == "00" && buffer == "-0"))
+    return;
 
   if (buffer == INIT) {
     if (input == ".") {
@@ -35,10 +36,14 @@ function handleNumber(input) {
       return;
     }
     buffer = " " + input;
+  } else if (input == "." && buffer == "-0") {
+    buffer += input;
+  } else if (buffer == "-0") {
+    buffer = "-" + input;
   } else {
     if (buffer.includes(".")) {
       if (buffer.length - buffer.indexOf(".") > NUM_AFTER_DOT) {
-        handleError("No more than 8 char after dot");
+        handleError("No more than 8 characters after dot");
         return;
       }
     }
