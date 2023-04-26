@@ -222,10 +222,18 @@ function formatResult(total) {
 
 function rerender() {
   if (buffer.length >= 18) {
-    handleError("Max 16 symbols");
+    handleError("Input limit - 16 characters");
     buffer = buffer.substring(0, 17); // don't count " " or "-" symbols
   }
+
   data.innerText = buffer;
+
+  if (data.children[0]) {
+    alert(
+      "Something went wrong...\nPage will be refreshed after closing this alert window."
+    );
+    document.location.reload();
+  }
 }
 
 function handleError(text) {
