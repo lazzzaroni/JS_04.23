@@ -186,33 +186,38 @@ function handleZeroCases(runningTotal, intBuffer) {
 }
 
 function formatResult(total) {
-  let temp = [...total.toString()];
+  let result = [...total.toString()];
 
   // check if result have "-" character
-  if (temp[0] == "-") {
+  if (result[0] == "-") {
     // do nothing
   } else {
-    temp.unshift(" ");
+    result.unshift(" ");
   }
 
   // trim result to max length
-  if (temp.length >= 18) {
-    temp = temp.slice(0, 17);
+  if (result.length >= 18) {
+    result = result.slice(0, 17);
   }
 
-  temp = temp.join("");
+  result = result.join("");
 
   // trim numbers after dot
-  if (temp.includes(".")) {
-    if (temp.length - temp.indexOf(".") > NUM_AFTER_DOT) {
-      const dot = temp.indexOf(".") + 1;
-      const int = temp.substring(0, dot);
-      const float = temp.substring(dot, dot + NUM_AFTER_DOT);
-      temp = int + float;
+  if (result.includes(".")) {
+    if (result.length - result.indexOf(".") > NUM_AFTER_DOT) {
+      const dot = result.indexOf(".") + 1;
+      const int = result.substring(0, dot);
+      const float = result.substring(dot, dot + NUM_AFTER_DOT);
+      result = int + float;
     }
   }
 
-  return temp;
+  // if trimmed number longer than expected
+  if (result.length >= 17) {
+    handleError("Number is too big, result is trimmed to 16 characters");
+  }
+
+  return result;
 }
 
 function rerender() {
