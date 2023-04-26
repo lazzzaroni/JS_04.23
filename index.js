@@ -1,5 +1,6 @@
 const data = document.querySelector(".data");
 const error = document.querySelector(".error");
+const buttons = document.querySelector(".buttons");
 
 const INIT = " 0";
 const NUM_AFTER_DOT = 8;
@@ -238,11 +239,11 @@ function handleError(text) {
   error.innerText = text;
   setTimeout(() => {
     error.innerText = "";
-  }, 1500);
+  }, 2000);
 }
 
 function init() {
-  document.querySelector(".buttons").addEventListener("click", (e) => {
+  buttons.addEventListener("click", (e) => {
     buttonClick(e.target.innerText);
   });
 }
