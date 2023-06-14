@@ -1,6 +1,7 @@
 const data = document.querySelector(".data");
 const error = document.querySelector(".error");
 const buttons = document.querySelector(".buttons");
+const operations = document.getElementsByClassName("operation");
 
 const INIT = " 0";
 const NUM_AFTER_DOT = 8;
@@ -53,9 +54,27 @@ function handleNumber(input) {
   }
 }
 
+function clearActiveOperation() {
+  for (operation of operations) {
+    if (operation.classList.contains("active"))
+      operation.classList.remove("active");
+  }
+}
+
+function activeOperation(symbol) {
+  clearActiveOperation();
+
+  for (operation of operations) {
+    if (operation.textContent == symbol) {
+      operation.classList.add("active");
+    }
+  }
+}
+
 function handleSymbol(symbol) {
   switch (symbol) {
     case "c":
+      clearActiveOperation();
       handleClear();
       break;
     case "±":
@@ -68,9 +87,11 @@ function handleSymbol(symbol) {
     case "×":
     case "−":
     case "+":
+      activeOperation(symbol);
       handleMath(symbol);
       break;
     case "＝":
+      clearActiveOperation();
       handleEqual();
       break;
     default:
